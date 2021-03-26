@@ -6,7 +6,7 @@ public abstract class User {
     private int age;
     private long mobile;
 
-    public User(String name, String address, int age,int mobile) {
+    public User(String name, String address, int age,long mobile) {
         this.name = name;
         this.address = address;
         this.age = age;

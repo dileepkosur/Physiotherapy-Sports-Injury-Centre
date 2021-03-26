@@ -1,16 +1,21 @@
 package com.company.Controller;
 
 import com.company.Entity.Expertise;
+import com.company.Entity.Patient;
+import com.company.Entity.Physician;
+import com.company.PhysiotherapyCentre;
+import com.company.Utils.UserData;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RegistrationController {
-    ArrayList<String> appointmentDays=new ArrayList<String>();
-    ArrayList<String> appointmentHours=new ArrayList<String>();
-    ArrayList<String> consultationDays=new ArrayList<String>();
-    ArrayList<String> consultationHours=new ArrayList<String>();
+//    ArrayList<String> appointmentDays=new ArrayList<String>();
+//    ArrayList<String> appointmentHours=new ArrayList<String>();
+//    ArrayList<String> consultationDays=new ArrayList<String>();
+//    ArrayList<String> consultationHours=new ArrayList<String>();
     ArrayList<Expertise> expertise = new ArrayList<Expertise>();
+    UserData userData=new UserData();
     public void runRegistration(){
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -23,6 +28,7 @@ public class RegistrationController {
             if (response == 1) {
                 registerPhysician();
             } else if (response == 2) {
+                registerPatient();
             }  else if (response == 3) {
                 break;
             } else {
@@ -33,19 +39,21 @@ public class RegistrationController {
 
     private void registerPhysician(){
         Scanner scanner = new Scanner(System.in);
-        String name,age,address;long mobile,id;int temp;
+        String name,address;long mobile,id;int temp,age;
         System.out.println("*** Registration :: Register New Physician ***\n");
         System.out.println("Enter Name --> ");
         name=scanner.nextLine().trim();
-        System.out.println("Enter Age --> ");
-        age=scanner.nextLine().trim();
         System.out.println("Enter Address --> ");
         address=scanner.nextLine().trim();
+        System.out.println("Enter Age --> ");
+        age=scanner.nextInt();
         System.out.println("Enter mobile number --> ");
         mobile=scanner.nextLong();
         areaOfExpertise();
-
+        Physician physician=new Physician(name,address,age,mobile,this.expertise);
+        userData.addPhysician(physician);
         System.out.println("Physician has been registered successfully!\n");
+        System.out.println(userData.getPhysicians());
     }
     public void areaOfExpertise(){
         Scanner scanner = new Scanner(System.in);
@@ -70,7 +78,6 @@ public class RegistrationController {
                 break;
             }
         }
-        System.out.println("ajgfdak");
     }
     public void listOfTreatments(String title){
         ArrayList<String> treatmentList=new ArrayList<String>();
@@ -144,5 +151,20 @@ public class RegistrationController {
             }
         }
         expertise.add(new Expertise(title,treatmentList));
+    }
+
+    public void registerPatient(){
+        Scanner scanner = new Scanner(System.in);
+        String name,address;long mobile,id;int temp,age;
+        System.out.println("*** Registration :: Register New Physician ***\n");
+        System.out.println("Enter Name --> ");
+        name=scanner.nextLine().trim();
+        System.out.println("Enter Age --> ");
+        age=scanner.nextInt();
+        System.out.println("Enter Address --> ");
+        address=scanner.nextLine().trim();
+        System.out.println("Enter mobile number --> ");
+        mobile=scanner.nextLong();
+        Patient patient=new Patient(name,address,age,mobile);
     }
 }
