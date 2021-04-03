@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Physician extends User{
 
-    private long physicianId;
+    private String physicianId;
     private ArrayList<Expertise> areas_of_expertise;
 //    private ArrayList<String> appointmentDays;
 //    private ArrayList<String> consultaionDays;
@@ -20,13 +20,6 @@ public class Physician extends User{
 //        this.consultationHours = consultationHours;
     }
 
-    public long getPhysicianId() {
-        return physicianId;
-    }
-
-    public void setPhysicianId(long physicianId) {
-        this.physicianId = physicianId;
-    }
 
     public ArrayList<Expertise> getAreas_of_expertise() {
         return areas_of_expertise;

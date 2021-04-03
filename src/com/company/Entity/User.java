@@ -1,6 +1,9 @@
 package com.company.Entity;
 
+import java.util.StringJoiner;
+
 public abstract class User {
+
     private String name;
     private String address;
     private int age;
@@ -43,5 +46,15 @@ public abstract class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("address='" + address + "'")
+                .add("age=" + age)
+                .add("mobile=" + mobile)
+                .toString();
     }
 }
