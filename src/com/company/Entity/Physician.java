@@ -1,63 +1,53 @@
 package com.company.Entity;
 
-import java.util.ArrayList;
+import com.company.Enums.Treatment;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringJoiner;
+import java.util.UUID;
 
 public class Physician extends User{
 
     private String physicianId;
-    private ArrayList<Expertise> areas_of_expertise;
-//    private ArrayList<String> appointmentDays;
-//    private ArrayList<String> consultaionDays;
-//    private ArrayList<String> appointmentHours;
-//    private ArrayList<String> consultationHours;
 
-    public Physician(String name, String address, int age, long mobile, ArrayList<Expertise> areas_of_expertise) {
+    private List<Treatment> treatmentList;
+
+    public Physician(String name, String address, int age, long mobile, List<Treatment> treatmentList) {
         super(name, address, age, mobile);
-        this.areas_of_expertise = areas_of_expertise;
-//        this.appointmentDays = appointmentDays;
-//        this.consultaionDays = consultaionDays;
-//        this.appointmentHours = appointmentHours;
-//        this.consultationHours = consultationHours;
+        this.physicianId    =   UUID.randomUUID().toString();
+        this.treatmentList  =   treatmentList;
     }
 
-
-    public ArrayList<Expertise> getAreas_of_expertise() {
-        return areas_of_expertise;
+    public Physician(String name, String address, int age, long mobile, Treatment... treatmentList) {
+        super(name, address, age, mobile);
+        this.physicianId    =   UUID.randomUUID().toString();
+        this.treatmentList  = Arrays.asList(treatmentList);
     }
 
-    public void setAreas_of_expertise(ArrayList<Expertise> areas_of_expertise) {
-        this.areas_of_expertise = areas_of_expertise;
+    public List<Treatment> getExpertiseList() {
+        return treatmentList;
     }
 
-//    public ArrayList<String> getAppointmentDays() {
-//        return appointmentDays;
-//    }
-//
-//    public void setAppointmentDays(ArrayList<String> appointmentDays) {
-//        this.appointmentDays = appointmentDays;
-//    }
-//
-//    public ArrayList<String> getConsultaionDays() {
-//        return consultaionDays;
-//    }
-//
-//    public void setConsultaionDays(ArrayList<String> consultaionDays) {
-//        this.consultaionDays = consultaionDays;
-//    }
-//
-//    public ArrayList<String> getAppointmentHours() {
-//        return appointmentHours;
-//    }
-//
-//    public void setAppointmentHours(ArrayList<String> appointmentHours) {
-//        this.appointmentHours = appointmentHours;
-//    }
-//
-//    public ArrayList<String> getConsultationHours() {
-//        return consultationHours;
-//    }
+    public Physician setTreatmentList(List<Treatment> treatmentList) {
+        this.treatmentList  =   treatmentList;
+        return this;
+    }
 
-//    public void setConsultationHours(ArrayList<String> consultationHours) {
-//        this.consultationHours = consultationHours;
-//    }
+    public Physician setTreatmentList(Treatment... treatmentList) {
+        this.treatmentList  =   Arrays.asList(treatmentList);
+        return this;
+    }
+
+    public String getPhysicianId() {
+        return physicianId;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Physician.class.getSimpleName() + "[", "]")
+                .add("physicianId='" + physicianId + "'")
+                .add("treatmentList=" + treatmentList)
+                .toString();
+    }
 }
