@@ -231,5 +231,19 @@ public class PhysiotherapyCentre {
                 "-1. Back");
     }
 
+    public static Map<Integer, Patient> getPatientList() {
+        return patientList;
+    }
 
+    public static Map<Integer, Physician> getPhysicianList() {
+        return physicianList;
+    }
+
+    public static List<Visitor> getVisitorList() {
+        return visitorList;
+    }
+
+    public static Map<Integer, Appointment> getAppointmentList() {
+        return appointmentList;
+    }
 }
