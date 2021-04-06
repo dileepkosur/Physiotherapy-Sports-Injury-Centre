@@ -1,18 +1,17 @@
 package com.company.Entity;
 
-import com.company.Enums.Expertise;
 import com.company.Enums.Treatment;
 
 import java.util.*;
 
 public class Physician extends User{
 
-    private String physicianId;
+    private static int physicianId;
 
     private List<Treatment> treatmentList;
 
     public Physician() throws Exception{
-        this.physicianId    =   UUID.randomUUID().toString();
+        physicianId++;
         this.createNewPhysician();
     }
 
@@ -22,13 +21,13 @@ public class Physician extends User{
 
     public Physician(String name, String address, int age, long mobile, List<Treatment> treatmentList) {
         super(name, address, age, mobile);
-        this.physicianId    =   UUID.randomUUID().toString();
+        physicianId++;
         this.treatmentList  =   treatmentList;
     }
 
     public Physician(String name, String address, int age, long mobile, Treatment... treatmentList) {
         super(name, address, age, mobile);
-        this.physicianId    =   UUID.randomUUID().toString();
+        physicianId++;
         this.treatmentList  = Arrays.asList(treatmentList);
     }
 
@@ -46,7 +45,7 @@ public class Physician extends User{
         return this;
     }
 
-    public String getPhysicianId() {
+    public int getPhysicianId() {
         return physicianId;
     }
 

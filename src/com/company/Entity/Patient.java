@@ -1,20 +1,23 @@
 package com.company.Entity;
 
 import java.util.StringJoiner;
-import java.util.UUID;
 
 public class Patient extends User{
 
-    private String patientId;
+    private static int patientId;
 
     public Patient() throws Exception {
-        this.patientId = UUID.randomUUID().toString();
+        patientId++;
         this.createNewUser();
     }
 
     public Patient(String name, String address, int age, long mobile) {
         super(name, address, age,mobile);
-        this.patientId = UUID.randomUUID().toString();
+        patientId++;
+    }
+
+    public static int getPatientId() {
+        return patientId;
     }
 
     @Override
