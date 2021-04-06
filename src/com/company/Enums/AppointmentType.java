@@ -2,8 +2,8 @@ package com.company.Enums;
 
 public enum AppointmentType {
 
-    Patient,
+    PATIENT,
 
-    Visitor;
+    VISITOR;
 
 }
