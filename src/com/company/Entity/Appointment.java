@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 
 public class Appointment {
 
-    private long appointmentId;
+    private static int appointmentId;
     private long patientId;
     private long doctorId;
     private Date date;
@@ -16,12 +16,8 @@ public class Appointment {
     private MedicalRoom room;
     private AppointmentStatus status;
 
-    public long getAppointmentId() {
+    public static int getAppointmentId() {
         return appointmentId;
-    }
-
-    public void setAppointmentId(long appointmentId) {
-        this.appointmentId = appointmentId;
     }
 
     public long getPatientId() {
@@ -70,6 +66,10 @@ public class Appointment {
 
     public void setStatus(AppointmentStatus status) {
         this.status = status;
+    }
+
+    public void editAppointment(){
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.company.Entity;
 
 import com.company.Enums.Treatment;
 
+import java.time.DayOfWeek;
 import java.util.*;
 
 public class Physician extends User{
@@ -10,6 +11,8 @@ public class Physician extends User{
 
     private List<Treatment> treatmentList;
 
+    private ConsultationPeriod consultationPeriod;
+
     public Physician() throws Exception{
         physicianId++;
         this.createNewPhysician();
@@ -17,6 +20,7 @@ public class Physician extends User{
 
     public Physician(String name, String address, int age, long mobile) {
         super(name, address, age, mobile);
+        physicianId++;
     }
 
     public Physician(String name, String address, int age, long mobile, List<Treatment> treatmentList) {
@@ -45,11 +49,20 @@ public class Physician extends User{
         return this;
     }
 
-    public int getPhysicianId() {
+    public static int getPhysicianId() {
         return physicianId;
     }
 
-    public Physician createNewPhysician() throws Exception{
+    public ConsultationPeriod getConsultationPeriod() {
+        return consultationPeriod;
+    }
+
+    public Physician setConsultationPeriod(ConsultationPeriod consultationPeriod) {
+        this.consultationPeriod = consultationPeriod;
+        return this;
+    }
+
+    public void createNewPhysician() throws Exception{
 
         super.createNewUser();
 
@@ -73,7 +86,21 @@ public class Physician extends User{
             throw new Exception("Invalid treatment values");
         }
 
-        return this;
+        int day, startTime;
+        System.out.println("Enter enter your ConsultationPeriod details --> \n" +
+                "Choose Day of a Week\n" +
+                "1. Monday\n" +
+                "2. Tuesday\n" +
+                "3. Wednesday\n" +
+                "4. Thursday\n" +
+                "5. Friday");
+        day = scanner.nextInt();
+
+        System.out.println("Enter Start Time Starting from 9(9 am) to 18(6 pm) 1 to 2 is Lunch time. [Ex: 14]");
+        startTime = scanner.nextInt();
+
+        this.setConsultationPeriod(new ConsultationPeriod(day, startTime));
+
     }
 
     private void setTreatments(String input, Treatment[] treatments) {
@@ -96,4 +123,33 @@ public class Physician extends User{
                 .add("treatmentList=" + treatmentList)
                 .toString();
     }
+
+    public static class ConsultationPeriod {
+        DayOfWeek  dayOfWeek;
+        int startTime;
+        int durationInHours=1;
+
+        public ConsultationPeriod(int dayOfWeek, int startTime) throws Exception{
+
+            if(dayOfWeek <1 || dayOfWeek > 5 || startTime <9 || startTime > 18 || startTime == 13){
+                throw new Exception("Invalid ConsultationPeriod");
+            }
+
+            this.dayOfWeek = DayOfWeek.values()[dayOfWeek-1];
+            this.startTime = startTime;
+        }
+
+        public DayOfWeek getDayOfWeek() {
+            return dayOfWeek;
+        }
+
+        public int getStartTime() {
+            return startTime;
+        }
+
+        public int getDurationInHours() {
+            return durationInHours;
+        }
+    }
+
 }

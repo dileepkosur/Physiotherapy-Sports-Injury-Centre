@@ -4,11 +4,11 @@ import com.company.Entity.Patient;
 import com.company.Entity.Physician;
 import com.company.Enums.Treatment;
 
-import java.util.List;
+import java.util.Map;
 
 public class DefaultDataUtil {
 
-    public static void createDefaultPhysicians(List<Physician> physicians){
+    public static void loadDefaultPhysicians( Map<Integer, Physician> physicians) throws Exception{
 
         Physician physician1 = new Physician("Dileep Kosur","Hatfield",26,789689632)
                 .setTreatmentList(Treatment.ELECTROTHERAPY,
@@ -20,7 +20,10 @@ public class DefaultDataUtil {
                 Treatment.CRANIAL_OSTEOPATHY,
                 Treatment.PHYSICAL_EXCERCISE,
                 Treatment.GYM,
-                Treatment.SWIMMING_POOL);
+                Treatment.SWIMMING_POOL)
+                .setConsultationPeriod(new Physician.ConsultationPeriod(1, 12));
+
+        physicians.put(Physician.getPhysicianId(), physician1);
 
         Physician physician2 = new Physician("Johny Depp", "Hatfield", 32, 789689632)
                 .setTreatmentList(Treatment.ELECTROTHERAPY,
@@ -28,20 +31,28 @@ public class DefaultDataUtil {
                 Treatment.HEAT_THERAPY,
                 Treatment.CLASSICAL_OSTEOPATHY,
                 Treatment.CRANIAL_OSTEOPATHY,
-                Treatment.PHYSICAL_EXCERCISE);
+                Treatment.PHYSICAL_EXCERCISE)
+                .setConsultationPeriod(new Physician.ConsultationPeriod(2, 11));
 
-        physicians.add(physician1);
-        physicians.add(physician2);
+
+
+        physicians.put(Physician.getPhysicianId(), physician2);
 
     }
 
-    public static void createDefaultPatients(List<Patient> patients){
+    public static void loadDefaultPatients( Map<Integer, Patient> patients){
 
-        patients.add(new Patient("Alex","London",25,12479721));
-        patients.add(new Patient("Mike","Hatfield",55,12479721));
-        patients.add(new Patient("Jessy","Luton",23,12479721));
-        patients.add(new Patient("Siva","Betford",26,12479721));
-        patients.add(new Patient("Brad","Manchester",75,12479721));
+        Patient patient1 = new Patient("Alex","London",25,12479721);
+        patients.put(Patient.getPatientId(), patient1);
+
+        Patient patient2 = new Patient("Mike","Hatfield",55,12479721);
+        patients.put(Patient.getPatientId(), patient2);
+
+        Patient patient3 = new Patient("Siva","Betford",26,12479721);
+        patients.put(Patient.getPatientId(), patient3);
+
+        Patient patient4 = new Patient("Brad","Manchester",75,12479721);
+        patients.put(Patient.getPatientId(), patient4);
 
     }
 
