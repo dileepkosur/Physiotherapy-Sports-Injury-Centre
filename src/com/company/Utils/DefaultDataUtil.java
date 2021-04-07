@@ -1,9 +1,12 @@
 package com.company.Utils;
 
+import com.company.Entity.Appointment;
 import com.company.Entity.Patient;
 import com.company.Entity.Physician;
+import com.company.Entity.Visitor;
 import com.company.Enums.Treatment;
 
+import java.util.List;
 import java.util.Map;
 
 public class DefaultDataUtil {
@@ -52,4 +55,11 @@ public class DefaultDataUtil {
 
     }
 
+    public static void loadDefaultAppointments(Map<Integer, Appointment> appointmentList) {
+        /* Need to loadDefaultAppointments */
+    }
+
+    public static void loadDefaultVisitors(List<Visitor> visitorList) {
+        /* Need to loadDefaultVisitors */
+    }
 }

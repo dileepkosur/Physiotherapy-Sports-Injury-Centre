@@ -282,6 +282,8 @@ public class PhysiotherapyCentre {
     private static void loadDefaultData() throws Exception{
         DefaultDataUtil.loadDefaultPhysicians(physicianList);
         DefaultDataUtil.loadDefaultPatients(patientList);
+        DefaultDataUtil.loadDefaultAppointments(appointmentList);
+        DefaultDataUtil.loadDefaultVisitors(visitorList);
     }
 
     private static void printInfo(){
