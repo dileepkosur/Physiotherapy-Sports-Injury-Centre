@@ -2,86 +2,179 @@ package com.company.Entity;
 
 import com.company.Enums.AppointmentStatus;
 import com.company.Enums.MedicalRoom;
+import com.company.Enums.Treatment;
+import com.company.Utils.PhysiotherapyCentreUtil;
 
-import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class Appointment {
 
     private static int appointmentId;
-    private long patientId;
-    private long doctorId;
-    private Date date;
-    private String treatment;
-    private MedicalRoom room;
-    private AppointmentStatus status;
+    private int patientId;
+    private int physicianId;
+    private LocalDateTime dateTime;
+    private Treatment treatment;
+    private MedicalRoom medicalRoom;
+    private AppointmentStatus appointmentStatus;
+
+    public Appointment() throws Exception{
+        appointmentId++;
+        this.appointmentStatus = AppointmentStatus.UPCOMING;
+        this.createNewAppointment();
+    }
 
     public static int getAppointmentId() {
         return appointmentId;
     }
 
-    public long getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(long patientId) {
+    public void setPatientId(int patientId) throws Exception{
+        PhysiotherapyCentreUtil.getPatient(patientId);
         this.patientId = patientId;
     }
 
-    public long getDoctorId() {
-        return doctorId;
+    public int getPhysicianId() {
+        return physicianId;
     }
 
-    public void setDoctorId(long doctorId) {
-        this.doctorId = doctorId;
+    public void setPhysicianId(int physicianId) throws Exception{
+        PhysiotherapyCentreUtil.getPhysician(physicianId);
+        this.physicianId = physicianId;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
     }
 
-    public String getTreatment() {
+    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) throws Exception{
+        if(dateTime.getDayOfWeek() == DayOfWeek.SATURDAY || dateTime.getDayOfWeek() == DayOfWeek.SUNDAY){
+            throw new Exception("Can't book an appointment on weekends. Saturday and Sunday are weekend");
+        }
+
+        Physician physician = PhysiotherapyCentreUtil.getPhysician(this.physicianId);
+
+        if(dateTime.getHour() == 13){
+            throw new Exception("Sorry, the given time is lunch break. please change the time");
+        }
+
+        if(dateTime.getDayOfWeek() == physician.getConsultationPeriod().dayOfWeek && dateTime.getHour() == physician.getConsultationPeriod().startTime){
+            throw new Exception("Sorry, the given period is consultation hour. please change the time");
+        }
+        this.dateTime = dateTime;
+    }
+
+    public Treatment getTreatment() {
         return treatment;
     }
 
-    public void setTreatment(String treatment) {
+    public void setTreatment(Treatment treatment) throws Exception{
+
+        Physician physician = PhysiotherapyCentreUtil.getPhysician(this.physicianId);
+
+        if(!physician.getTreatmentList().contains(treatment)) {
+            throw new Exception("Doctor is not providing such treatment. He is providing the below treatments\n" +
+                    physician.getTreatmentList());
+        }
         this.treatment = treatment;
     }
 
-    public MedicalRoom getRoom() {
-        return room;
+    public MedicalRoom getMedicalRoom() {
+        return medicalRoom;
     }
 
-    public void setRoom(MedicalRoom room) {
-        this.room = room;
+    public void setMedicalRoom(MedicalRoom medicalRoom) {
+        this.medicalRoom = medicalRoom;
     }
 
-    public AppointmentStatus getStatus() {
-        return status;
-    }
+    private void createNewAppointment() throws Exception{
 
-    public void setStatus(AppointmentStatus status) {
-        this.status = status;
-    }
+        int input;
+        Scanner scanner = new Scanner(System.in);
+        MedicalRoom[] medicalRooms  =   MedicalRoom.values();
 
-    public void editAppointment(){
+        System.out.println("Enter PatientId");
+        this.setPatientId(scanner.nextInt());
 
+        System.out.println("Enter PhysicianId");
+        this.setPhysicianId(scanner.nextInt());
+
+        Physician physician = PhysiotherapyCentreUtil.getPhysician(this.physicianId);
+        List<Treatment> treatments = physician.getTreatmentList();
+
+        System.out.println("Choose Treatment");
+        try {
+            int i = 1;
+            for (Treatment treatment : treatments) {
+                System.out.println(i + ". " + treatment.name() + " [" + treatment.getExpertise() + "] ");
+                i++;
+            }
+
+            input = scanner.nextInt();
+            this.setTreatment(treatments.get(input-1));
+        }
+        catch (ArrayIndexOutOfBoundsException indEx){
+            throw new Exception("Please provide valid treatment value.");
+        }
+
+        System.out.println("Choose MedicalRoom");
+        try {
+            int i = 1;
+            for (MedicalRoom medicalRoom : medicalRooms) {
+                System.out.println(i + ". " + medicalRoom.name() );
+                i++;
+            }
+
+            input = scanner.nextInt();
+            this.setMedicalRoom(medicalRooms[input-1]);
+        }
+        catch (ArrayIndexOutOfBoundsException indEx){
+            throw new Exception("Please provide valid MedicalRoom. From 1 To 5.");
+        }
+
+        System.out.println("Enter Appointment Date [Ex: 06-Apr-2021 14:00:00]");
+        LocalDateTime dateTime;
+
+        try{
+            scanner.nextLine();
+            String dateStr = scanner.nextLine();
+            dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"));
+
+        }catch (Exception ex){
+            throw new Exception("Invalid Date refer example date [Ex: 06-Apr-2021 14:00:00]");
+        }
+
+        if(Objects.requireNonNull(dateTime).isBefore(LocalDateTime.now())){
+            throw new Exception("Appointment can't be a past date");
+        }
+        this.setDateTime(dateTime);
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Appointment.class.getSimpleName() + "[", "]")
-                .add("appointmentId=" + appointmentId)
                 .add("patientId=" + patientId)
-                .add("doctorId=" + doctorId)
-                .add("date=" + date)
-                .add("treatment='" + treatment + "'")
-                .add("room=" + room)
-                .add("status=" + status)
+                .add("physicianId=" + physicianId)
+                .add("dateTime=" + dateTime)
+                .add("treatment=" + treatment)
+                .add("medicalRoom=" + medicalRoom)
+                .add("appointmentStatus=" + appointmentStatus)
                 .toString();
     }
 }

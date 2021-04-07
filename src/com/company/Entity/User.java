@@ -14,7 +14,7 @@ public abstract class User {
     }
 
     public User(String name, String address, int age, long mobile) {
-        this.name = name;
+        this.name = name.toUpperCase();
         this.address = address;
         this.age = age;
         this.mobile=mobile;
@@ -40,7 +40,7 @@ public abstract class User {
 
         /*Add your validation here*/
 
-        this.name = name;
+        this.name = name.toUpperCase();
         return this;
     }
 

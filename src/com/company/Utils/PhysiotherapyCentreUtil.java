@@ -5,6 +5,8 @@ import com.company.Entity.Patient;
 import com.company.Entity.Physician;
 import com.company.PhysiotherapyCentre;
 
+import java.util.Map;
+
 public class PhysiotherapyCentreUtil {
 
     public static Physician getPhysician(int physicianID) throws Exception{
@@ -39,6 +41,16 @@ public class PhysiotherapyCentreUtil {
         }
 
         return appointment;
+
+    }
+    public static void printPhysician(Map<Integer, Physician> physicianMap){
+        System.out.println("Id\tName\t\t\t\t Mobile No\t\t Consultation Detail\tTreatments Provided");
+
+        for(Map.Entry<Integer, Physician> entry : physicianMap.entrySet()){
+            System.out.println(entry.getKey()+ "\t" + entry.getValue().getName() + "\t\t\t\t " + entry.getValue().getMobile() + "\t\t"
+                    + entry.getValue().getConsultationPeriod().getDayOfWeek() + "-" + entry.getValue().getConsultationPeriod().getStartTime() + "\t"
+                    + entry.getValue().getTreatmentList());
+        }
 
     }
 

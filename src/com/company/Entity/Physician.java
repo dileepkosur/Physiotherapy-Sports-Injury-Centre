@@ -35,7 +35,7 @@ public class Physician extends User{
         this.treatmentList  = Arrays.asList(treatmentList);
     }
 
-    public List<Treatment> getExpertiseList() {
+    public List<Treatment> getTreatmentList() {
         return treatmentList;
     }
 
@@ -84,6 +84,9 @@ public class Physician extends User{
         }
         catch (NumberFormatException ex){
             throw new Exception("Invalid treatment values");
+        }
+        catch (ArrayIndexOutOfBoundsException indEx){
+            throw new Exception("Please provide valid treatment value. From 1 To 10. Ex[1,5,10]");
         }
 
         int day, startTime;

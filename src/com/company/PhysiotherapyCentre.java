@@ -5,7 +5,12 @@ import com.company.Entity.Patient;
 import com.company.Entity.Physician;
 import com.company.Entity.Visitor;
 
+import com.company.Enums.AppointmentStatus;
+import com.company.Enums.Treatment;
 import com.company.Utils.DefaultDataUtil;
+import com.company.Utils.PhysiotherapyCentreUtil;
+
+import java.util.stream.*;
 
 import java.util.*;
 
@@ -48,6 +53,8 @@ public class PhysiotherapyCentre {
                     break;
                 case 4:
                     search();
+                    break;
+                case -1:
                     break;
                 default:
                     System.out.println("Kindly enter valid values from 1 to 4 or -1 to exit");
@@ -133,14 +140,13 @@ public class PhysiotherapyCentre {
 
                 case 2:
                     try {
-                        System.out.println("Enter Appointment id to edit");
+                        System.out.println("Enter Appointment id to cancel");
                         input = scanner.nextInt();
-                        Appointment appointment = appointmentList.get(input);
-                        appointment.editAppointment();
-                        System.out.println("Appointment edited successfully - "+appointment);
+                        appointmentList.get(input).setAppointmentStatus(AppointmentStatus.CANCELLED);
+                        System.out.println("Appointment cancelled successfully - "+appointmentList.get(input));
                     }
                     catch (ArrayIndexOutOfBoundsException indexEx){
-                        System.out.println("Error in editing a appointment. Try again. Reason : There is no such appointment");
+                        System.out.println("Error in editing a appointment. Try again. Reason : No appointment found");
                     }
                     catch (Exception ex) {
                         System.out.println("Error in editing a appointment. Try again. Reason : " + ex.getMessage());
@@ -155,7 +161,7 @@ public class PhysiotherapyCentre {
                         System.out.println(appointmentList.get(input));
                     }
                     catch (ArrayIndexOutOfBoundsException indexEx){
-                        System.out.println("Error in editing a appointment. Try again. Reason : There is no such appointment");
+                        System.out.println("Error in editing a appointment. Try again. Reason : No appointment found");
                     }
                     catch (Exception ex) {
                         System.out.println("Error in viewing a appointment. Try again. Reason : " + ex.getMessage());
@@ -175,6 +181,79 @@ public class PhysiotherapyCentre {
     }
 
     private static void search() {
+
+        int input;
+
+        do{
+
+            printSearchInfo();
+            input = scanner.nextInt();
+
+            switch (input) {
+                case 1:
+
+                    System.out.println("Choose a treatment to search. To search single treatment [Ex: 4], To search list of treatment [Ex: 1,2,10] --> ");
+                    Treatment[] treatments  =   Treatment.values();
+                    try {
+                        int i = 1;
+                        for (Treatment treatment : treatments) {
+                            System.out.println(i + ". " + treatment.name() + " [" + treatment.getExpertise() + "] ");
+                            i++;
+                        }
+
+                        String inputStr;
+                        scanner.nextLine();
+                        inputStr = scanner.nextLine();
+
+                        String[] indexes = inputStr.split(",");
+                        List<Treatment> treatmentList = new ArrayList<Treatment>();
+
+                        for (String index : indexes) {
+                            treatmentList.add(treatments[Integer.parseInt(index)-1]);
+                        }
+
+                        Map<Integer, Physician> filteredValue=new HashMap<>();
+
+                        for(Treatment treatment : treatmentList) {
+                            Map<Integer, Physician> val = physicianList.entrySet().stream().filter(qw -> qw.getValue().getTreatmentList().contains(treatment))
+                                    .collect(Collectors.toMap(qw -> qw.getKey(), qw -> qw.getValue()));
+                            filteredValue.putAll(val);
+                        }
+
+                        if(filteredValue.size() > 0) {
+                            PhysiotherapyCentreUtil.printPhysician(filteredValue);
+                        }else{
+                            System.out.println("No Physician Found");
+                        }
+
+                    }
+                    catch (NumberFormatException | ArrayIndexOutOfBoundsException ex){
+                        System.out.println("Error in searching a physician. Try again. Reason : Invalid treatment value");
+                    }
+                    catch (Exception ex){
+                        System.out.println("Error in searching a physician. Try again. Reason : "+ex.getMessage());
+                    }
+                    break;
+
+                case 2:
+
+                    System.out.println("Enter a physician name to search --> ");
+                    scanner.nextLine();
+                    String name = scanner.nextLine().toUpperCase();
+
+                    Map<Integer, Physician> filteredValue = physicianList.entrySet().stream().filter(qw -> qw.getValue().getName().contains(name))
+                            .collect(Collectors.toMap(qw->qw.getKey(), qw->qw.getValue()));
+
+                    if(filteredValue.size() > 0) {
+                        PhysiotherapyCentreUtil.printPhysician(filteredValue);
+                    }else{
+                        System.out.println("No Physician Found");
+                    }
+
+            }
+
+        }while (input != -1);
+
     }
 
     private static void createEditVisitorAppointment() {
@@ -209,7 +288,7 @@ public class PhysiotherapyCentre {
 
         System.out.println("Kindly press any of the following keys\n" +
                 "1. Create New Appointment\n" +
-                "2. Edit an Appointment\n" +
+                "2. Cancel an Appointment\n" +
                 "3. View an Appointment\n" +
                 "-1. Back");
     }
@@ -226,8 +305,8 @@ public class PhysiotherapyCentre {
     private static void printSearchInfo(){
 
         System.out.println("Kindly press any of the following keys\n" +
-                "1. Search Based on Treatment\n" +
-                "2. Search Based on Physician Name\n" +
+                "1. Search Physician Based on Treatment\n" +
+                "2. Search Physician Based on Physician Name\n" +
                 "-1. Back");
     }
 
