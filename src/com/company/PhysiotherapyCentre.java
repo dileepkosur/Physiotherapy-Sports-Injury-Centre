@@ -16,13 +16,13 @@ import java.util.*;
 
 public class PhysiotherapyCentre {
 
-    private static Map<Integer, Patient> patientList = new HashMap<>();
+    private static Map<Integer, Patient> patientMap = new HashMap<>();
 
-    private static Map<Integer, Physician> physicianList = new HashMap<>();
+    private static Map<Integer, Physician> physicianMap = new HashMap<>();
 
-    private static List <Visitor> visitorList = new ArrayList<>();
+    private static List <Visitor> visitorMap = new ArrayList<>();
 
-    private static Map<Integer, Appointment> appointmentList = new HashMap<>();
+    private static Map<Integer, Appointment> appointmentMap = new HashMap<>();
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -88,7 +88,7 @@ public class PhysiotherapyCentre {
                 case 1:
                     try {
                         Physician physician  = new Physician();
-                        physicianList.put(physician.getPhysicianId(), physician);
+                        physicianMap.put(physician.getPhysicianId(), physician);
                         System.out.println("Physician Added successfully - "+physician);
                     } catch (Exception ex) {
                         System.out.println("Error in adding a physician. Try again. Reason : " + ex.getMessage());
@@ -98,7 +98,7 @@ public class PhysiotherapyCentre {
                 case 2:
                     try {
                         Patient patient  = new Patient();
-                        patientList.put(patient.getPatientId(), patient);
+                        patientMap.put(patient.getPatientId(), patient);
                         System.out.println("Patient Added successfully - "+patient);
                     } catch (Exception ex) {
                         System.out.println("Error in adding a patient. Try again. Reason : " + ex.getMessage());
@@ -108,7 +108,7 @@ public class PhysiotherapyCentre {
                 case 3:
                     try {
                         Visitor visitor  = new Visitor();
-                        visitorList.add(visitor);
+                        visitorMap.add(visitor);
                         System.out.println("Visitor Added successfully - "+visitor);
                     } catch (Exception ex) {
                         System.out.println("Error in adding a visitor. Try again. Reason : " + ex.getMessage());
@@ -145,7 +145,7 @@ public class PhysiotherapyCentre {
                 case 1:
                     try {
                         Appointment appointment  = new Appointment();
-                        appointmentList.put(Appointment.getAppointmentId(), appointment);
+                        appointmentMap.put(Appointment.getAppointmentId(), appointment);
                         System.out.println("Appointment Added successfully - "+appointment);
                     }
                     catch (Exception ex) {
@@ -157,8 +157,8 @@ public class PhysiotherapyCentre {
                     try {
                         System.out.println("Enter Appointment id to cancel");
                         input = scanner.nextInt();
-                        appointmentList.get(input).setAppointmentStatus(AppointmentStatus.CANCELLED);
-                        System.out.println("Appointment cancelled successfully - "+appointmentList.get(input));
+                        appointmentMap.get(input).setAppointmentStatus(AppointmentStatus.CANCELLED);
+                        System.out.println("Appointment cancelled successfully - "+ appointmentMap.get(input));
                     }
                     catch (ArrayIndexOutOfBoundsException indexEx){
                         System.out.println("Error in editing a appointment. Try again. Reason : No appointment found");
@@ -173,7 +173,7 @@ public class PhysiotherapyCentre {
                     try {
                         System.out.println("Enter Appointment id to view");
                         input = scanner.nextInt();
-                        System.out.println(appointmentList.get(input));
+                        System.out.println(appointmentMap.get(input));
                     }
                     catch (ArrayIndexOutOfBoundsException indexEx){
                         System.out.println("Error in editing a appointment. Try again. Reason : No appointment found");
@@ -234,7 +234,7 @@ public class PhysiotherapyCentre {
                         Map<Integer, Physician> filteredValue=new HashMap<>();
 
                         for(Treatment treatment : treatmentList) {
-                            Map<Integer, Physician> val = physicianList.entrySet().stream().filter(qw -> qw.getValue().getTreatmentList().contains(treatment))
+                            Map<Integer, Physician> val = physicianMap.entrySet().stream().filter(qw -> qw.getValue().getTreatmentList().contains(treatment))
                                     .collect(Collectors.toMap(qw -> qw.getKey(), qw -> qw.getValue()));
                             filteredValue.putAll(val);
                         }
@@ -260,7 +260,7 @@ public class PhysiotherapyCentre {
                     scanner.nextLine();
                     String name = scanner.nextLine().toUpperCase();
 
-                    Map<Integer, Physician> filteredValue = physicianList.entrySet().stream().filter(qw -> qw.getValue().getName().contains(name))
+                    Map<Integer, Physician> filteredValue = physicianMap.entrySet().stream().filter(qw -> qw.getValue().getName().contains(name))
                             .collect(Collectors.toMap(qw->qw.getKey(), qw->qw.getValue()));
 
                     if(filteredValue.size() > 0) {
@@ -280,10 +280,10 @@ public class PhysiotherapyCentre {
 
 
     private static void loadDefaultData() throws Exception{
-        DefaultDataUtil.loadDefaultPhysicians(physicianList);
-        DefaultDataUtil.loadDefaultPatients(patientList);
-        DefaultDataUtil.loadDefaultAppointments(appointmentList);
-        DefaultDataUtil.loadDefaultVisitors(visitorList);
+        DefaultDataUtil.loadDefaultPhysicians(physicianMap);
+        DefaultDataUtil.loadDefaultPatients(patientMap);
+        DefaultDataUtil.loadDefaultAppointments(appointmentMap);
+        DefaultDataUtil.loadDefaultVisitors(visitorMap);
     }
 
     private static void printInfo(){
@@ -331,19 +331,19 @@ public class PhysiotherapyCentre {
                 "-1. Back");
     }
 
-    public static Map<Integer, Patient> getPatientList() {
-        return patientList;
+    public static Map<Integer, Patient> getPatientMap() {
+        return patientMap;
     }
 
-    public static Map<Integer, Physician> getPhysicianList() {
-        return physicianList;
+    public static Map<Integer, Physician> getPhysicianMap() {
+        return physicianMap;
     }
 
-    public static List<Visitor> getVisitorList() {
-        return visitorList;
+    public static List<Visitor> getVisitorMap() {
+        return visitorMap;
     }
 
-    public static Map<Integer, Appointment> getAppointmentList() {
-        return appointmentList;
+    public static Map<Integer, Appointment> getAppointmentMap() {
+        return appointmentMap;
     }
 }

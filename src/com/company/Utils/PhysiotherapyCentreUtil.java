@@ -29,7 +29,7 @@ public class PhysiotherapyCentreUtil {
 
     public static Physician getPhysician(int physicianID) throws Exception{
 
-        Physician physician = PhysiotherapyCentre.getPhysicianList().get(physicianID);
+        Physician physician = PhysiotherapyCentre.getPhysicianMap().get(physicianID);
 
         if(physician == null){
             throw new Exception("No Physician Found");
@@ -40,7 +40,7 @@ public class PhysiotherapyCentreUtil {
 
     public static Patient getPatient(int patientID) throws Exception{
 
-        Patient patient = PhysiotherapyCentre.getPatientList().get(patientID);
+        Patient patient = PhysiotherapyCentre.getPatientMap().get(patientID);
 
         if(patient == null){
             throw new Exception("No Patient Found");
@@ -52,7 +52,7 @@ public class PhysiotherapyCentreUtil {
 
     public static Appointment getAppointment(int appointmentID) throws Exception{
 
-        Appointment appointment = PhysiotherapyCentre.getAppointmentList().get(appointmentID);
+        Appointment appointment = PhysiotherapyCentre.getAppointmentMap().get(appointmentID);
 
         if(appointment == null){
             throw new Exception("No Appointment Found");
