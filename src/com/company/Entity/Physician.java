@@ -1,38 +1,39 @@
 package com.company.Entity;
 
 import com.company.Enums.Treatment;
+import com.company.Utils.PhysiotherapyCentreUtil;
 
 import java.time.DayOfWeek;
 import java.util.*;
 
 public class Physician extends User{
 
-    private static int physicianId;
+    private int physicianId;
 
     private List<Treatment> treatmentList;
 
     private ConsultationPeriod consultationPeriod;
 
     public Physician() throws Exception{
-        physicianId++;
+        this.physicianId = PhysiotherapyCentreUtil.getPhysicianCounter();
         this.createNewPhysician();
     }
 
     public Physician(String name, String address, int age, long mobile) {
         super(name, address, age, mobile);
-        physicianId++;
+        this.physicianId = PhysiotherapyCentreUtil.getPhysicianCounter();
     }
 
     public Physician(String name, String address, int age, long mobile, List<Treatment> treatmentList) {
         super(name, address, age, mobile);
-        physicianId++;
+        this.physicianId    =   PhysiotherapyCentreUtil.getPhysicianCounter();
         this.treatmentList  =   treatmentList;
     }
 
     public Physician(String name, String address, int age, long mobile, Treatment... treatmentList) {
         super(name, address, age, mobile);
-        physicianId++;
-        this.treatmentList  = Arrays.asList(treatmentList);
+        this.physicianId    =   PhysiotherapyCentreUtil.getPhysicianCounter();
+        this.treatmentList  =   Arrays.asList(treatmentList);
     }
 
     public List<Treatment> getTreatmentList() {
@@ -49,8 +50,8 @@ public class Physician extends User{
         return this;
     }
 
-    public static int getPhysicianId() {
-        return physicianId;
+    public int getPhysicianId() {
+        return this.physicianId;
     }
 
     public ConsultationPeriod getConsultationPeriod() {
@@ -124,7 +125,8 @@ public class Physician extends User{
                 new StringJoiner(", ", Physician.class.getSimpleName() + "[", "]")
                 .add("physicianId='" + physicianId + "'")
                 .add("treatmentList=" + treatmentList)
-                .toString();
+                .toString() +
+                this.getConsultationPeriod().toString();
     }
 
     public static class ConsultationPeriod {
@@ -152,6 +154,15 @@ public class Physician extends User{
 
         public int getDurationInHours() {
             return durationInHours;
+        }
+
+        @Override
+        public String toString() {
+            return new StringJoiner(", ", ConsultationPeriod.class.getSimpleName() + "[", "]")
+                    .add("dayOfWeek=" + dayOfWeek)
+                    .add("startTime=" + startTime)
+                    .add("durationInHours=" + durationInHours)
+                    .toString();
         }
     }
 

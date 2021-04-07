@@ -9,6 +9,24 @@ import java.util.Map;
 
 public class PhysiotherapyCentreUtil {
 
+    private static int physicianCounter=0;
+
+    private static int patientCounter=0;
+
+    private static int visitorCounter=0;
+
+    public static int getPhysicianCounter() {
+        return ++physicianCounter;
+    }
+
+    public static int getPatientCounter() {
+        return ++patientCounter;
+    }
+
+    public static int getVisitorCounter() {
+        return ++visitorCounter;
+    }
+
     public static Physician getPhysician(int physicianID) throws Exception{
 
         Physician physician = PhysiotherapyCentre.getPhysicianList().get(physicianID);

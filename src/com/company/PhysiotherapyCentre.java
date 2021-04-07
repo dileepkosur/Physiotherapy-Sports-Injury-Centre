@@ -35,11 +35,16 @@ public class PhysiotherapyCentre {
 
     private static void initApplication() {
 
-        int input;
+        int input=-1;
 
         do{
             printInfo();
-            input = scanner.nextInt();
+
+            try {
+                input = scanner.nextInt();
+            }catch (Exception ex){
+                System.out.println("Error in reading input");
+            }
 
             switch (input){
                 case 1:
@@ -67,18 +72,23 @@ public class PhysiotherapyCentre {
 
     private static void createNewEntity(){
 
-        int input;
+        int input=-1;
 
         do {
             printCreateInfo();
-            input = scanner.nextInt();
+
+            try {
+                input = scanner.nextInt();
+            }catch (Exception ex){
+                System.out.println("Error in reading input");
+            }
 
             switch (input) {
 
                 case 1:
                     try {
                         Physician physician  = new Physician();
-                        physicianList.put(Physician.getPhysicianId(), physician);
+                        physicianList.put(physician.getPhysicianId(), physician);
                         System.out.println("Physician Added successfully - "+physician);
                     } catch (Exception ex) {
                         System.out.println("Error in adding a physician. Try again. Reason : " + ex.getMessage());
@@ -88,7 +98,7 @@ public class PhysiotherapyCentre {
                 case 2:
                     try {
                         Patient patient  = new Patient();
-                        patientList.put(Patient.getPatientId(), patient);
+                        patientList.put(patient.getPatientId(), patient);
                         System.out.println("Patient Added successfully - "+patient);
                     } catch (Exception ex) {
                         System.out.println("Error in adding a patient. Try again. Reason : " + ex.getMessage());
@@ -119,11 +129,16 @@ public class PhysiotherapyCentre {
 
     private static void createEditAppointment(){
 
-        int input;
+        int input=-1;
 
         do {
             printAppointmentInfo();
-            input = scanner.nextInt();
+
+            try {
+                input = scanner.nextInt();
+            }catch (Exception ex){
+                System.out.println("Error in reading input");
+            }
 
             switch (input) {
 
@@ -182,12 +197,16 @@ public class PhysiotherapyCentre {
 
     private static void search() {
 
-        int input;
+        int input=-1;
 
         do{
 
             printSearchInfo();
-            input = scanner.nextInt();
+            try {
+                input = scanner.nextInt();
+            }catch (Exception ex){
+                System.out.println("Error in reading input");
+            }
 
             switch (input) {
                 case 1:

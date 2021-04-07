@@ -22,8 +22,7 @@ public class DefaultDataUtil {
                 Treatment.GYM,
                 Treatment.SWIMMING_POOL)
                 .setConsultationPeriod(new Physician.ConsultationPeriod(1, 12));
-
-        physicians.put(Physician.getPhysicianId(), physician1);
+        physicians.put(physician1.getPhysicianId(), physician1);
 
         Physician physician2 = new Physician("Johny Depp", "Hatfield", 32, 789689632)
                 .setTreatmentList(Treatment.ELECTROTHERAPY,
@@ -33,26 +32,23 @@ public class DefaultDataUtil {
                 Treatment.CRANIAL_OSTEOPATHY,
                 Treatment.PHYSICAL_EXCERCISE)
                 .setConsultationPeriod(new Physician.ConsultationPeriod(2, 11));
-
-
-
-        physicians.put(Physician.getPhysicianId(), physician2);
+        physicians.put(physician2.getPhysicianId(), physician2);
 
     }
 
     public static void loadDefaultPatients( Map<Integer, Patient> patients){
 
         Patient patient1 = new Patient("Alex","London",25,12479721);
-        patients.put(Patient.getPatientId(), patient1);
+        patients.put(patient1.getPatientId(), patient1);
 
         Patient patient2 = new Patient("Mike","Hatfield",55,12479721);
-        patients.put(Patient.getPatientId(), patient2);
+        patients.put(patient2.getPatientId(), patient2);
 
         Patient patient3 = new Patient("Siva","Betford",26,12479721);
-        patients.put(Patient.getPatientId(), patient3);
+        patients.put(patient3.getPatientId(), patient3);
 
         Patient patient4 = new Patient("Brad","Manchester",75,12479721);
-        patients.put(Patient.getPatientId(), patient4);
+        patients.put(patient4.getPatientId(), patient4);
 
     }
 

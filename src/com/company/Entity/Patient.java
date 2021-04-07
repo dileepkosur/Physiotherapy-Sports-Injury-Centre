@@ -1,23 +1,25 @@
 package com.company.Entity;
 
+import com.company.Utils.PhysiotherapyCentreUtil;
+
 import java.util.StringJoiner;
 
 public class Patient extends User{
 
-    private static int patientId;
+    private int patientId;
 
     public Patient() throws Exception {
-        patientId++;
+        patientId = PhysiotherapyCentreUtil.getPatientCounter();
         this.createNewUser();
     }
 
     public Patient(String name, String address, int age, long mobile) {
         super(name, address, age,mobile);
-        patientId++;
+        patientId = PhysiotherapyCentreUtil.getPatientCounter();
     }
 
-    public static int getPatientId() {
-        return patientId;
+    public int getPatientId() {
+        return this.patientId;
     }
 
     @Override
