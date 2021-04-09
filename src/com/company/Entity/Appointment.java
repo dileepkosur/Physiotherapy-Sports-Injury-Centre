@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 
 public class Appointment {
 
-    private int appointmentId;
+    private static int appointmentId;
     private int patientId;
     private int physicianId;
     private LocalDateTime dateTime;
@@ -29,7 +29,7 @@ public class Appointment {
         this.createNewAppointment();
     }
 
-    public int getAppointmentId() {
+    public static int getAppointmentId() {
         return appointmentId;
     }
 
