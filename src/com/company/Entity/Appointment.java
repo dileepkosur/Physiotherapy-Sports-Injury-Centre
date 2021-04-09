@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 
 public class Appointment {
 
-    private static int appointmentId;
+    private int appointmentId;
     private int patientId;
     private int physicianId;
     private LocalDateTime dateTime;
@@ -24,12 +24,12 @@ public class Appointment {
     private AppointmentStatus appointmentStatus;
 
     public Appointment() throws Exception{
-        appointmentId++;
+        this.appointmentId=PhysiotherapyCentreUtil.getAppointmentCounter();
         this.appointmentStatus = AppointmentStatus.UPCOMING;
         this.createNewAppointment();
     }
 
-    public static int getAppointmentId() {
+    public int getAppointmentId() {
         return appointmentId;
     }
 
@@ -169,6 +169,7 @@ public class Appointment {
     @Override
     public String toString() {
         return new StringJoiner(", ", Appointment.class.getSimpleName() + "[", "]")
+                .add("appointmentId="+ appointmentId)
                 .add("patientId=" + patientId)
                 .add("physicianId=" + physicianId)
                 .add("dateTime=" + dateTime)

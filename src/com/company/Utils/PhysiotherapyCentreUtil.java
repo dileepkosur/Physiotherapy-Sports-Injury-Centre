@@ -15,6 +15,10 @@ public class PhysiotherapyCentreUtil {
 
     private static int visitorCounter=0;
 
+    private static int appointmentCounter=0;
+
+    public static int getAppointmentCounter() { return ++appointmentCounter;}
+
     public static int getPhysicianCounter() {
         return ++physicianCounter;
     }
