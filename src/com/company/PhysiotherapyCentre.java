@@ -145,7 +145,7 @@ public class PhysiotherapyCentre {
                 case 1:
                     try {
                         Appointment appointment  = new Appointment();
-                        appointmentMap.put(Appointment.getAppointmentId(), appointment);
+                        appointmentMap.put(appointment.getAppointmentId(), appointment);
                         System.out.println("Appointment Added successfully - "+appointment);
                     }
                     catch (Exception ex) {

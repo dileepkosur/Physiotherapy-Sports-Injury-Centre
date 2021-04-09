@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 
 public class Appointment {
 
-    private static int appointmentId;
+    private int appointmentId;
     private int patientId;
     private int physicianId;
     private LocalDateTime dateTime;
@@ -29,7 +29,17 @@ public class Appointment {
         this.createNewAppointment();
     }
 
-    public static int getAppointmentId() {
+    public Appointment(int patientId, int physicianId, LocalDateTime dateTime, Treatment treatment, MedicalRoom medicalRoom, AppointmentStatus appointmentStatus) {
+        this.appointmentId=PhysiotherapyCentreUtil.getAppointmentCounter();
+        this.patientId = patientId;
+        this.physicianId = physicianId;
+        this.dateTime = dateTime;
+        this.treatment = treatment;
+        this.medicalRoom = medicalRoom;
+        this.appointmentStatus = appointmentStatus;
+    }
+
+    public int getAppointmentId() {
         return appointmentId;
     }
 
