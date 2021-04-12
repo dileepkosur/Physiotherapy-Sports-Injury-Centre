@@ -23,7 +23,7 @@ public class Appointment {
     private MedicalRoom medicalRoom;
     private AppointmentStatus appointmentStatus;
 
-    public Appointment() throws Exception{
+    public  Appointment() throws Exception{
         this.appointmentId=PhysiotherapyCentreUtil.getAppointmentCounter();
         this.appointmentStatus = AppointmentStatus.UPCOMING;
         this.createNewAppointment();
@@ -74,6 +74,14 @@ public class Appointment {
     }
 
     public void setDateTime(LocalDateTime dateTime) throws Exception{
+
+        List<Appointment> appointments = PhysiotherapyCentreUtil.getAppointmentsByPhysicianId(this.physicianId);
+        for(Appointment appointment : appointments){
+            if(dateTime.isEqual(appointment.getDateTime()) ){
+                throw new Exception("Please select some other date time. Physician is busy with some other appointments");
+            }
+        }
+
         if(dateTime.getDayOfWeek() == DayOfWeek.SATURDAY || dateTime.getDayOfWeek() == DayOfWeek.SUNDAY){
             throw new Exception("Can't book an appointment on weekends. Saturday and Sunday are weekend");
         }
@@ -158,16 +166,17 @@ public class Appointment {
             throw new Exception("Please provide valid MedicalRoom. From 1 To 5.");
         }
 
-        System.out.println("Enter Appointment Date [Ex: 06-Apr-2021 14:00:00]");
+        System.out.println("Enter Appointment Date [Ex: 06-Apr-2021 14] (dd-MMM-yyyy HH)");
+        PhysiotherapyCentreUtil.printAppointmentInterval(this.physicianId);
         LocalDateTime dateTime;
 
         try{
             scanner.nextLine();
             String dateStr = scanner.nextLine();
-            dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"));
+            dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("dd-MMM-yyyy HH"));
 
         }catch (Exception ex){
-            throw new Exception("Invalid Date refer example date [Ex: 06-Apr-2021 14:00:00]");
+            throw new Exception("Invalid Date refer example date [Ex: 06-Apr-2021 14] (dd-MMM-yyyy HH)");
         }
 
         if(Objects.requireNonNull(dateTime).isBefore(LocalDateTime.now())){
@@ -182,7 +191,7 @@ public class Appointment {
                 .add("appointmentId="+ appointmentId)
                 .add("patientId=" + patientId)
                 .add("physicianId=" + physicianId)
-                .add("dateTime=" + dateTime)
+                .add("dateTime=" + dateTime.toLocalDate()+" "+dateTime.toLocalTime())
                 .add("treatment=" + treatment)
                 .add("medicalRoom=" + medicalRoom)
                 .add("appointmentStatus=" + appointmentStatus)

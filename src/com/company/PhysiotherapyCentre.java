@@ -149,7 +149,7 @@ public class PhysiotherapyCentre {
                         System.out.println("Appointment Added successfully - "+appointment);
                     }
                     catch (Exception ex) {
-                        System.out.println("Error in adding a physician. Try again. Reason : " + ex.getMessage());
+                        System.out.println("Error in adding a appointment. Try again. Reason : " + ex.getMessage());
                     }
                     break;
 
@@ -168,8 +168,22 @@ public class PhysiotherapyCentre {
                     }
 
                     break;
-
                 case 3:
+                    try {
+                        System.out.println("Enter Appointment id to attend");
+                        input = scanner.nextInt();
+                        Appointment appointment = appointmentMap.get(input);
+                        appointment.setAppointmentStatus(AppointmentStatus.COMPLETED);
+                        System.out.println("Thanks for attending appointment. Please wait at "+appointment.getMedicalRoom());
+                    }
+                    catch (ArrayIndexOutOfBoundsException indexEx){
+                        System.out.println("Error in attending a appointment. Try again. Reason : No appointment found");
+                    }
+                    catch (Exception ex){
+                        System.out.println("Error in attending an appointment. Try again. Reason : " + ex.getMessage());
+                    }
+                    break;
+                case 4:
                     try {
                         System.out.println("Enter Appointment id to view");
                         input = scanner.nextInt();
@@ -182,7 +196,34 @@ public class PhysiotherapyCentre {
                         System.out.println("Error in viewing a appointment. Try again. Reason : " + ex.getMessage());
                     }
                     break;
-
+                case 5:
+                    try{
+                        System.out.println("Enter Patient id to view his appointments");
+                        input = scanner.nextInt();
+                        for(Appointment appointment : PhysiotherapyCentreUtil.getAppointmentsByPatientId(input)){
+                            System.out.println(appointment);
+                        }
+                    } catch (ArrayIndexOutOfBoundsException indexEx){
+                        System.out.println("Error in editing a appointment. Try again. Reason : No appointment found");
+                    }
+                    catch (Exception ex) {
+                        System.out.println("Error in viewing a appointment. Try again. Reason : " + ex.getMessage());
+                    }
+                    break;
+                case 6:
+                    try{
+                        System.out.println("Enter Physician id to view his appointments");
+                        input = scanner.nextInt();
+                        for(Appointment appointment : PhysiotherapyCentreUtil.getAppointmentsByPhysicianId(input)){
+                            System.out.println(appointment);
+                        }
+                    } catch (ArrayIndexOutOfBoundsException indexEx){
+                        System.out.println("Error in editing a appointment. Try again. Reason : No appointment found");
+                    }
+                    catch (Exception ex) {
+                        System.out.println("Error in viewing a appointment. Try again. Reason : " + ex.getMessage());
+                    }
+                    break;
                 case -1:
                     break;
 
@@ -256,19 +297,23 @@ public class PhysiotherapyCentre {
 
                 case 2:
 
-                    System.out.println("Enter a physician name to search --> ");
-                    scanner.nextLine();
-                    String name = scanner.nextLine().toUpperCase();
+                    try {
+                        System.out.println("Enter a physician name to search --> ");
+                        scanner.nextLine();
+                        String name = scanner.nextLine().toUpperCase();
 
-                    Map<Integer, Physician> filteredValue = physicianMap.entrySet().stream().filter(qw -> qw.getValue().getName().contains(name))
-                            .collect(Collectors.toMap(qw->qw.getKey(), qw->qw.getValue()));
+                        Map<Integer, Physician> filteredValue = physicianMap.entrySet().stream().filter(qw -> qw.getValue().getName().contains(name))
+                                .collect(Collectors.toMap(qw -> qw.getKey(), qw -> qw.getValue()));
 
-                    if(filteredValue.size() > 0) {
-                        PhysiotherapyCentreUtil.printPhysician(filteredValue);
-                    }else{
-                        System.out.println("No Physician Found");
+                        if (filteredValue.size() > 0) {
+                            PhysiotherapyCentreUtil.printPhysician(filteredValue);
+                        } else {
+                            System.out.println("No Physician Found");
+                        }
+                    }catch (Exception ex){
+                        System.out.println("Error in searching a physician. Try again. Reason : "+ex.getMessage());
                     }
-
+                    break;
             }
 
         }while (input != -1);
@@ -310,7 +355,11 @@ public class PhysiotherapyCentre {
         System.out.println("Kindly press any of the following keys\n" +
                 "1. Create New Appointment\n" +
                 "2. Cancel an Appointment\n" +
-                "3. View an Appointment\n" +
+                "3. Attend an Appointment\n" +
+                "4. View an Appointment\n" +
+                "5. View all Appointments for a patient\n" +
+                "6. View all Appointments for a physician2" +
+                "\n" +
                 "-1. Back");
     }
 

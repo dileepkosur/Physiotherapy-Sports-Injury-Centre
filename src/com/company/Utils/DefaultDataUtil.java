@@ -134,37 +134,37 @@ public class DefaultDataUtil {
     }
 
     public static void loadDefaultAppointments(Map<Integer, Appointment> appointmentList) throws Exception {
-        Appointment appointment1=new Appointment(1,1, LocalDateTime.parse("06-Apr-2021 14:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.CLASSICAL_OSTEOPATHY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
+        Appointment appointment1=new Appointment(1,1, LocalDateTime.parse("06-Apr-2021 14", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.CLASSICAL_OSTEOPATHY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
         appointmentList.put(appointment1.getAppointmentId(),appointment1);
 
-        Appointment appointment2=new Appointment(1,1, LocalDateTime.parse("09-Apr-2021 15:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.GYM, MedicalRoom.GYM, AppointmentStatus.COMPLETED);
+        Appointment appointment2=new Appointment(1,1, LocalDateTime.parse("09-Apr-2021 15", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.GYM, MedicalRoom.GYM, AppointmentStatus.COMPLETED);
         appointmentList.put(appointment2.getAppointmentId(),appointment2);
 
-        Appointment appointment3=new Appointment(1,1, LocalDateTime.parse("20-Apr-2021 14:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.STRUCTURAL_OSTEOPATHY, MedicalRoom.MEDICAL_CONSULTING_SUITE_B, AppointmentStatus.UPCOMING);
+        Appointment appointment3=new Appointment(1,1, LocalDateTime.parse("20-Apr-2021 14", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.STRUCTURAL_OSTEOPATHY, MedicalRoom.MEDICAL_CONSULTING_SUITE_B, AppointmentStatus.UPCOMING);
         appointmentList.put(appointment3.getAppointmentId(),appointment3);
 
-        Appointment appointment4=new Appointment(1,1, LocalDateTime.parse("21-Apr-2021 15:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.ULTRASOUND, MedicalRoom.MEDICAL_CONSULTING_SUITE_C, AppointmentStatus.UPCOMING);
+        Appointment appointment4=new Appointment(1,1, LocalDateTime.parse("21-Apr-2021 15", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.ULTRASOUND, MedicalRoom.MEDICAL_CONSULTING_SUITE_C, AppointmentStatus.UPCOMING);
         appointmentList.put(appointment4.getAppointmentId(),appointment4);
 
-        Appointment appointment5=new Appointment(2,2, LocalDateTime.parse("06-Apr-2021 10:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.PHYSICAL_EXCERCISE, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
+        Appointment appointment5=new Appointment(2,2, LocalDateTime.parse("06-Apr-2021 10", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.PHYSICAL_EXCERCISE, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
         appointmentList.put(appointment5.getAppointmentId(),appointment5);
 
-        Appointment appointment6=new Appointment(2,2, LocalDateTime.parse("08-Apr-2021 15:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.HEAT_THERAPY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
+        Appointment appointment6=new Appointment(2,2, LocalDateTime.parse("08-Apr-2021 15", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.HEAT_THERAPY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
         appointmentList.put(appointment6.getAppointmentId(),appointment6);
 
-        Appointment appointment7=new Appointment(3,2, LocalDateTime.parse("21-Apr-2021 11:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.ULTRASOUND, MedicalRoom.MEDICAL_CONSULTING_SUITE_B, AppointmentStatus.UPCOMING);
+        Appointment appointment7=new Appointment(3,2, LocalDateTime.parse("21-Apr-2021 11", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.ULTRASOUND, MedicalRoom.MEDICAL_CONSULTING_SUITE_B, AppointmentStatus.UPCOMING);
         appointmentList.put(appointment7.getAppointmentId(),appointment7);
 
-        Appointment appointment8=new Appointment(4,3, LocalDateTime.parse("08-Apr-2021 16:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.ELECTROTHERAPY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
+        Appointment appointment8=new Appointment(4,3, LocalDateTime.parse("08-Apr-2021 16", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.ELECTROTHERAPY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
         appointmentList.put(appointment8.getAppointmentId(),appointment8);
 
-        Appointment appointment9=new Appointment(5,3, LocalDateTime.parse("08-Apr-2021 15:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.ELECTROTHERAPY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
+        Appointment appointment9=new Appointment(5,3, LocalDateTime.parse("08-Apr-2021 15", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.ELECTROTHERAPY, MedicalRoom.MEDICAL_CONSULTING_SUITE_A, AppointmentStatus.COMPLETED);
         appointmentList.put(appointment9.getAppointmentId(),appointment9);
 
-        Appointment appointment10=new Appointment(6,4, LocalDateTime.parse("20-Apr-2021 14:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.STRUCTURAL_OSTEOPATHY, MedicalRoom.MEDICAL_CONSULTING_SUITE_B, AppointmentStatus.UPCOMING);
+        Appointment appointment10=new Appointment(6,4, LocalDateTime.parse("20-Apr-2021 14", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.STRUCTURAL_OSTEOPATHY, MedicalRoom.MEDICAL_CONSULTING_SUITE_B, AppointmentStatus.UPCOMING);
         appointmentList.put(appointment10.getAppointmentId(),appointment10);
 
-        Appointment appointment11=new Appointment(1,5, LocalDateTime.parse("21-Apr-2021 15:00:00", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss")),Treatment.NEURAL_MOBILISATION, MedicalRoom.MEDICAL_CONSULTING_SUITE_C, AppointmentStatus.UPCOMING);
+        Appointment appointment11=new Appointment(1,5, LocalDateTime.parse("21-Apr-2021 15", DateTimeFormatter.ofPattern("dd-MMM-yyyy HH")),Treatment.NEURAL_MOBILISATION, MedicalRoom.MEDICAL_CONSULTING_SUITE_C, AppointmentStatus.UPCOMING);
         appointmentList.put(appointment11.getAppointmentId(),appointment11);
 
     }
