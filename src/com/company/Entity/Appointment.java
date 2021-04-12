@@ -166,17 +166,17 @@ public class Appointment {
             throw new Exception("Please provide valid MedicalRoom. From 1 To 5.");
         }
 
-        System.out.println("Enter Appointment Date [Ex: 06-Apr-2021 14] (dd-MMM-yyyy HH)");
+        System.out.println("Enter Appointment Date [Ex: 06-Apr-2021 14] (dd-mm-yyyy HH)");
         PhysiotherapyCentreUtil.printAppointmentInterval(this.physicianId);
         LocalDateTime dateTime;
 
         try{
             scanner.nextLine();
             String dateStr = scanner.nextLine();
-            dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("dd-MMM-yyyy HH"));
+            dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("dd-mm-yyyy HH"));
 
         }catch (Exception ex){
-            throw new Exception("Invalid Date refer example date [Ex: 06-Apr-2021 14] (dd-MMM-yyyy HH)");
+            throw new Exception("Invalid Date refer example date [Ex: 06-Apr-2021 14] (dd-mm-yyyy HH)");
         }
 
         if(Objects.requireNonNull(dateTime).isBefore(LocalDateTime.now())){
