@@ -78,7 +78,7 @@ public class Appointment {
         List<Appointment> appointments = PhysiotherapyCentreUtil.getAppointmentsByPhysicianId(this.physicianId);
         for(Appointment appointment : appointments){
             if(dateTime.isEqual(appointment.getDateTime()) ){
-                throw new Exception("Please select some other date time. Physician is busy with some other appointments");
+                throw new Exception("Please select some other date time. Physician is busy with some other appointment");
             }
         }
 
